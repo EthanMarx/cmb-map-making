@@ -32,9 +32,9 @@ class NoisePointingModel:
     """
 
     def __init__(self, x, y, nx, ny, noise_spec):
-        self._x = np.round(x).astype(int)
+        self._x = np.round(x).astype(int) # This is the index not radian. Should give x_coord/pix_width as input, I think.
         self._y = np.round(y).astype(int)
-        self._nx = nx
+        self._nx = nx # number of pixels in x direction
         self._ny = ny
         self._flat_inds = self._y + ny * self._x
         self._noise_spec = noise_spec.copy()
@@ -47,7 +47,8 @@ class NoisePointingModel:
         Performs the operation $N^{-1} d$.
 
         """
-
+        # Note: this method corresponds to the line after equation (2) in the pset
+        
         # Note that I don't need unitary normalizations for the FFTs since the normalization
         # factors cancel between the forward and inverse FFT. However, the noise power
         # spectrum must be normalized to be that of the unitary case.
@@ -81,10 +82,11 @@ class NoisePointingModel:
 
         Returns
         -------
-        CN : 4D array with shape (nx, ny, nx, ny)
+        CN : 4D array with shape (nx, ny, nx, ny) # probably a typo here, it returns CN^-1 not CN
 
         """
-
+        # I believe this does D&S equation (14.28)
+        
         nx = self._nx
         ny = self._ny
         out = np.zeros((nx, ny, nx, ny), dtype=float)
