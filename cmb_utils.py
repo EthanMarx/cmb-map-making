@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import pyfftw
 import pyfftw.interfaces.numpy_fft as fft
 import multiprocessing
+from tqdm.notebook import trange, tqdm
 pyfftw.interfaces.cache.enable()
 pyfftw.config.NUM_THREADS = multiprocessing.cpu_count()
 
@@ -91,8 +92,10 @@ class NoisePointingModel:
         ny = self._ny
         out = np.zeros((nx, ny, nx, ny), dtype=float)
         colP = pyfftw.empty_aligned(len(self._x), dtype=float)
+        pbar = tqdm(total=nx)
         for ii in range(nx):
-            print("x-index", ii)
+            # print("x-index", ii)
+            pbar.update(1)
             for jj in range(ny):
                 #t0 = time.time()
                 colP[:] = np.logical_and(self._x == ii, self._y == jj)
