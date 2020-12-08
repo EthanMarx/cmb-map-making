@@ -137,7 +137,8 @@ def naieve_PS_estimator(map, pix_size):
     l_max = np.sqrt(2) * 2 * np.pi / (2 * pix_size)
     l_min = 2 * np.pi / (max(nx, ny) * pix_size)
     #l_bin_edges = np.logspace(np.log10(l_min), np.log10(l_max), 50, endpoint=True)
-    l_bin_edges = np.linspace(l_min, l_max, 50, endpoint=True)
+    # l_bin_edges = np.linspace(l_min, l_max, 50, endpoint=True)
+    l_bin_edges = np.linspace(l_min, l_max, 30, endpoint=True) # 30 for test data
 
     al = fft.fft2(map) * pix_size**2
     Cl_2D = abs(al)**2
